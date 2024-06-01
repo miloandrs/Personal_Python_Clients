@@ -8,7 +8,9 @@ from colorama import Fore, Back, Style
 
 def site_devices_selection(site: str) -> List:
     devices = [
-       #pending
+         "lab-casa-acc-sw-1-1.miloandrs.com"
     ]
     return devices
+
+
 
