@@ -42,6 +42,10 @@ class NapalmConnect:
             }
         )
     
+
+    """
+    Information gathering methods
+    """
     def helper_send_command_timing(self, commands: List[str]) -> dict:
         responses = {}
         for command in commands:
@@ -135,3 +139,22 @@ class NapalmConnect:
         self.device.close()
         
         
+    """
+    Configuration methods
+    """
+
+    def configure_interface_access(self, interface: str, vlan : int, description: str):
+        """
+        configures interface for access or trunk
+        """
+        try:       
+            self.device.open()
+            self.device.load_merge_candidate(
+                config=f"interface {interface}\ndescription {description}\nswitchport mode access\nswitchport access vlan {vlan}\npower inline auto\nend\n"
+            )
+
+            self.device.commit_config()
+            
+            return True
+        except Exception:
+            return False

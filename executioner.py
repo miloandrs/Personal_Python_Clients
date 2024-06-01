@@ -32,7 +32,11 @@ def devices_interaction(device, selection: str):
         case '7':
             execution = run.get_bin_file_present()
         case '8':
-            execution = 'WIP'
+            print(f"'\n' {Fore.MAGENTA}{Style.BRIGHT}Requires privilege 15{Style.RESET_ALL}")
+            interface = input('Enter interface: ')
+            vlan = int(input('Enter vlan number: '))
+            description = input('Enter description: ')
+            execution = run.configure_interface_access(interface, vlan, description)
 
 
 

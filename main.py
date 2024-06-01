@@ -25,20 +25,22 @@ def main():
             Q or q to quit
             
             ***
-            '1' : get_device_facts(),
-            '2' : get_device_firmware_version(),
-            '3' : get_device_environment(),
-            '4' : get_device_interfaces(),
-            '5' : get_device_fatal_errors(),
-            '6' : get_device_mac_address_table(),
-            '7' : get_bin_file_present()
+            '1' : get_device_facts,
+            '2' : get_device_firmware_version,
+            '3' : get_device_environment,
+            '4' : get_device_interfaces,
+            '5' : get_device_fatal_errors,
+            '6' : get_device_mac_address_table,
+            '7' : get_bin_file_present,
+            '8' : configure_interface_access,
+
             """
         )
         
         selection = input("Please enter your request: ")
         if re.match("^[qQ]$", selection):
             return True
-        elif re.match("^[1-7]$|^[1-9][0]$|^(10)$", selection):
+        elif re.match("^[1-8]$|^[1-9][0]$|^(10)$", selection):
             devices = device_pooler.site_devices_selection(constants.site)
             for device in devices:
                 try:
