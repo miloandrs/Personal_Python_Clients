@@ -8,7 +8,7 @@ from colorama import Fore, Back, Style
 
 def site_devices_selection(site: str) -> List:
     devices = [
-         "lab-casa-acc-sw-1-1.miloandrs.com"
+         f"{site}-casa-acc-sw-1-1.miloandrs.com"
     ]
     return devices
 

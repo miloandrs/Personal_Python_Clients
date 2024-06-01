@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional
 # Authentication
 class Authenticator:
     def __init__(self):
-        self.username = getpass.getuser()
+        self.username = "camilo"
         self.password = getpass.getpass()
 
 
