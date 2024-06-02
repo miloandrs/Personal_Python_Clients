@@ -33,6 +33,7 @@ def main():
             '6' : get_device_mac_address_table,
             '7' : get_bin_file_present,
             '8' : configure_interface_access,
+            '9' : configure_interface_trunk,
 
             """
         )
@@ -40,7 +41,7 @@ def main():
         selection = input("Please enter your request: ")
         if re.match("^[qQ]$", selection):
             return True
-        elif re.match("^[1-8]$|^[1-9][0]$|^(10)$", selection):
+        elif re.match("^[1-9]$|^[1-2][0]$|^(10)$", selection):
             devices = device_pooler.site_devices_selection(constants.site)
             for device in devices:
                 try:

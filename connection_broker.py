@@ -159,6 +159,7 @@ class NapalmConnect:
             description = _description,
         )
 
+
         try:       
             self.device.open()
             self.device.load_merge_candidate(
@@ -166,26 +167,26 @@ class NapalmConnect:
             )
 
             self.device.commit_config()
+            self.device.close()
             
             return True
         except Exception:
             return False
     
-    def configure_interface_trunk(self, _interface: str, _vlan : int, _description: str, _native_vlan : int, _allowed_vlan: str):
+    def configure_interface_trunk(self, _interface: str, _description: str, _native_vlan : int, _allowed_vlan: str):
         """
         configures interface for trunk
         """
         
         loader = jinja2.FileSystemLoader(searchpath="templates/")
         env = jinja2.Environment(loader=loader)
-        File = "access.jinja"
+        File = "trunk.jinja"
         template = env.get_template(File)
         out_text = template.render(
             interface = _interface,
-            vlan = _vlan,
             description = _description,
             native_vlan = _native_vlan,
-            allowed_vlan = _allowed_vlan
+            allowed_vlan = _allowed_vlan,
         )
 
         try:       
@@ -195,6 +196,7 @@ class NapalmConnect:
             )
 
             self.device.commit_config()
+            self.device.close()
             
             return True
         except Exception:

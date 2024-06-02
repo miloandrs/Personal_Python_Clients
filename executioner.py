@@ -37,6 +37,13 @@ def devices_interaction(device, selection: str):
             _vlan = int(input('Enter vlan number: '))
             _description = input('Enter description: ')
             execution = run.configure_interface_access(_interface, _vlan, _description)
+        case '9':
+            print(f"'\n' {Fore.MAGENTA}{Style.BRIGHT}Requires privilege 15{Style.RESET_ALL}")
+            _interface = input('Enter interface: ')
+            _description = input('Enter description: ')
+            _native_vlan = input('Enter native: ')
+            _allowed_vlan = input('Enter allowed (for multiple x-xx): ')
+            execution = run.configure_interface_trunk(_interface, _description, _native_vlan, _allowed_vlan)
 
 
 
