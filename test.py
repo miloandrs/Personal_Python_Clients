@@ -1,11 +1,19 @@
-#from typing import List
-import connection_broker
-#import device_pooler
-#from constants import site
-from colorama import Fore, Back, Style
+import jinja2
 
-creds = connection_broker.Authenticator()
-run = connection_broker.NapalmConnect("lab-casa-acc-sw-1-1.miloandrs.com", creds)
+_interface = "Gi1/0/4"
+_vlan = 30
+_description = "Cabeza Fria"
 
-test = run.configure_interface_access('Gi1/0/1', 30, 'Unifi AP')
-print(Fore.GREEN + Style.BRIGHT + test + Style.RESET_ALL)
+loader = jinja2.FileSystemLoader(searchpath="templates/")
+env = jinja2.Environment(loader=loader)
+File = "access.jinja"
+template = env.get_template(File)
+out_text = template.render(
+    interface = _interface,
+    vlan = _vlan,
+    description = _description,
+)
+
+print(out_text)
+    
+

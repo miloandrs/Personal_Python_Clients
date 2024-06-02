@@ -9,6 +9,7 @@ import napalm
 import netmiko
 import getpass
 from typing import Any, Dict, List, Optional
+import jinja2
 # from logging import Logger
 # import json
 
@@ -143,14 +144,54 @@ class NapalmConnect:
     Configuration methods
     """
 
-    def configure_interface_access(self, interface: str, vlan : int, description: str):
+    def configure_interface_access(self, _interface: str, _vlan : int, _description: str):
         """
-        configures interface for access or trunk
+        configures interface for access
         """
+        
+        loader = jinja2.FileSystemLoader(searchpath="templates/")
+        env = jinja2.Environment(loader=loader)
+        File = "access.jinja"
+        template = env.get_template(File)
+        out_text = template.render(
+            interface = _interface,
+            vlan = _vlan,
+            description = _description,
+        )
+
         try:       
             self.device.open()
             self.device.load_merge_candidate(
-                config=f"interface {interface}\ndescription {description}\nswitchport mode access\nswitchport access vlan {vlan}\npower inline auto\nend\n"
+                config=out_text
+            )
+
+            self.device.commit_config()
+            
+            return True
+        except Exception:
+            return False
+    
+    def configure_interface_trunk(self, _interface: str, _vlan : int, _description: str, _native_vlan : int, _allowed_vlan: str):
+        """
+        configures interface for trunk
+        """
+        
+        loader = jinja2.FileSystemLoader(searchpath="templates/")
+        env = jinja2.Environment(loader=loader)
+        File = "access.jinja"
+        template = env.get_template(File)
+        out_text = template.render(
+            interface = _interface,
+            vlan = _vlan,
+            description = _description,
+            native_vlan = _native_vlan,
+            allowed_vlan = _allowed_vlan
+        )
+
+        try:       
+            self.device.open()
+            self.device.load_merge_candidate(
+                config=out_text
             )
 
             self.device.commit_config()

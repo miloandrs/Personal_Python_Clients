@@ -1,0 +1,10 @@
+default interface {{ interface }}
+interface {{ interface }}
+description {{ description }}
+switchport trunk encapsulation dot1q
+switchport trunk native vlan {{ vlan }}
+switchport mode trunk
+switchport trunk allowed vlan {{ allowed_vlan }}
+power inline auto
+end
+
